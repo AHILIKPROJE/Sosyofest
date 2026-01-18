@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurkMed Net | Sağlık Turizmi Dijital Ağı</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">TURKMED <span>NET</span></div>
+        <nav>
+            <ul>
+                <a href="javascript:void(0)" class="nav-cta-btn" onclick="openPremiumAppointment()">
+    <i class="fa-solid fa-calendar-check"></i> Randevu Planla
+</a><a href="javascript:void(0)" class="nav-cta-btn" onclick="openTransportModal()" style="margin-left: 10px; background: #2c3e50; border-color: #2c3e50;">
+    <i class="fa-solid fa-plane-departure"></i> Nasıl Giderim?
+</a>
+
+<div class="corporate-hamburger" onclick="toggleSideMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<div id="sideMenu" class="side-menu-panel">
+    <div class="menu-header">
+        <h2>DANIŞMANLIK</h2>
+        <p>Sağlık Turizmi Asistanı</p>
+    </div>
+    <div class="menu-items">
+        <a href="javascript:void(0)" onclick="openAnalysis()">
+            <i class="fa-solid fa-chart-pie"></i> Maliyet Karşılaştırması
+        </a>
+        <a href="javascript:void(0)" onclick="closeSideMenu()">
+            <i class="fa-solid fa-xmark"></i> Kapat
+        </a>
+    </div>
+</div>
+
+<div id="analysisPage" class="full-page-overlay">
+    <div class="page-bg-video">
+        <video autoplay muted loop playsinline id="analysisVid">
+            <source src="4.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <div class="page-content">
+        <button class="exit-btn" onclick="closeAnalysis()">Geri Dön</button>
+        
+        <div class="glass-container">
+            <div class="analysis-header">
+                <h1>Global Tedavi Maliyet Endeksi</h1>
+                <p>Türkiye ve Dünya genelindeki tıbbi operasyonların şeffaf maliyet analizi.</p>
+            </div>
+
+            <div class="selector-box">
+                <label>Analiz Edilecek Tedaviyi Seçiniz</label>
+                <select id="treatmentSelect" onchange="updateRealTimeData()">
+                    <option value="">Lütfen seçim yapın...</option>
+                    <option value="dental">Zirkonyum Diş İmplantı (Tek Diş)</option>
+                    <option value="hair">Saç Ekimi (FUE - Maksimum Greft)</option>
+                    <option value="gastric">Mide Tüp Ameliyatı (Bariatrik)</option>
+                    <option value="rhino">Rinoplasti (Burun Estetiği)</option>
+                    <option value="eye">Akıllı Lens / Lazer Göz</option>
+                </select>
+            </div>
+
+            <div id="dataDisplay" class="data-display" style="display:none;">
+                </div>
+        </div>
+    </div>
+</div>
+
+                <li id="nav-home">Anasayfa</li>
+                <li id="nav-about">Hakkımızda</li>
+                <li class="nav-item dropdown">
+                    <div class="lang-selected">
+                        <img src="https://flagcdn.com/w20/tr.png" id="current-flag"> 
+                        <span id="current-lang-text">Türkçe</span>
+                    </div>
+                    <ul class="dropdown-menu">
+                        <li onclick="changeLang('tr')"><img src="https://flagcdn.com/w20/tr.png"> Türkçe</li>
+                        <li onclick="changeLang('en')"><img src="https://flagcdn.com/w20/gb.png"> English</li>
+                        <li onclick="changeLang('uz')"><img src="https://flagcdn.com/w20/uz.png"> O'zbekcha</li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="map-container">
+            <h1>Türk Devletleri Sağlık Turizmi Haritası</h1>
+            <p>Bilgi almak istediğiniz ülkeyi seçiniz.</p>
+        <div class="map-controls">
+    <div class="zoom-buttons">
+        <button id="back-to-world" onclick="goBackToWorld()" style="display:none;">
+    ← Dünya Haritasına Dön
+</button>
+        <button onclick="zoomMap('out')">-</button>
+        <span class="control-label">HARİTAYI GEZ</span>
+        <button onclick="zoomMap('in')">+</button>
+    </div>
+    <p style="font-size: 10px; color: #b38b1d; margin-top: 5px;">(Zoom yapınca mouse ile tutup sürükle)</p>
+</div>
+            <div id="svg-wrapper"></div>
+        </div>
+    </main>
+
+ <div id="countryModal" class="modal">
+    <div class="modal-content dashboard-mode">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        
+        <div class="dashboard-header">
+            <h2 id="modal-country-name">AZERBAYCAN</h2>
+            <div id="country-badge">Sağlık Turizmi Akredite Bilgi Paneli</div>
+        </div>
+
+        <div class="dashboard-body">
+            <div class="info-column">
+                <div class="category-grid">
+                    <button class="cat-card" onclick="loadDetail('surgery')">✂️ <span>CERRAHİ</span></button>
+                    <button class="cat-card" onclick="loadDetail('thermal')">♨️ <span>TERMAL</span></button>
+                    <button class="cat-card" onclick="loadDetail('care')">🧓 <span>BAKIM</span></button>
+                    <button class="cat-card" onclick="loadDetail('spa')">🧖 <span>SPA</span></button>
+                </div>
+                
+                <div id="main-description">
+                    <div class="welcome-msg">
+                        <h3>Hoş Geldiniz</h3>
+                        <p>Lütfen detaylı tıbbi analizler ve hastane verileri için bir kategori seçiniz.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hospital-column">
+                <div id="hospital-card" style="display:none;">
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="transportOverlay" class="premium-overlay">
+    
+    <button class="close-overlay-btn" onclick="closeTransportModal()">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="cinema-header">
+        <div class="video-track" id="transportVideoTrack">
+            <div class="video-item">
+                <video muted playsinline id="transVid1">
+                    <source src="4.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                    <span class="hero-tag">GLOBAL BAĞLANTI</span>
+                    <h2 class="hero-title">Dünyanın Her Yerinden <br>Direkt Uçuşlar</h2>
+                    <p class="hero-desc">THY ve global havayolları ile Türkiye'ye kolay erişim.</p>
+                </div>
+            </div>
+            <div class="video-item">
+                <video muted playsinline id="transVid2">
+                    <source src="5.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                    <span class="hero-tag">ROTA SİSTEMİ</span>
+                    <h2 class="hero-title">Havalimanından <br>Odanıza Kadar Transfer</h2>
+                    <p class="hero-desc">Toplu taşıma bilgilendirme sistemi ile kolay ulaşım.</p>
+                </div>
+            </div>
+            <div class="video-item">
+                <video muted playsinline id="transVid3">
+                    <source src="6.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                    <span class="hero-tag">KOLAY ULAŞIM</span>
+                    <h2 class="hero-title">Hızlı ve Konforlu <br>Şehir İçi Lojistik</h2>
+                    <p class="hero-desc">Hastanelerimiz merkezi lokasyonlarda, ulaşımı en kolay noktalardadır.</p>
+                </div>
+            </div>
+        </div>
+        <div class="video-overlay-gradient"></div>
+    </div>
+
+    <div class="form-section-wrapper">
+        <div class="form-container">
+            <div class="form-header">
+                <h3><i class="fa-solid fa-route"></i> Akıllı Rota Planlayıcı</h3>
+                <p>Bulunduğunuz konumu ve gitmek istediğiniz tedavi merkezini seçin, en hızlı rotayı çıkaralım.</p>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label><i class="fa-solid fa-earth-americas"></i> Nereden Geliyorsunuz?</label>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="originCountry" style="flex:1">
+                            <option value="TR">Türkiye (Yurt İçi)</option>
+                            <option value="DE">Almanya</option>
+                            <option value="UK">İngiltere</option>
+                            <option value="US">Amerika Birleşik Devletleri</option>
+                            <option value="FR">Fransa</option>
+                            <option value="NL">Hollanda</option>
+                            <option value="AZ">Azerbaycan</option>
+                            <option value="OTHER">Diğer Ülke</option>
+                        </select>
+                        <input type="text" id="originCity" placeholder="Şehir (Örn: Berlin)" style="flex:1; padding: 15px; border:1px solid #dfe6e9; border-radius:4px;">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa-solid fa-location-dot"></i> Tedavi Olacağınız Şehir</label>
+                    <select id="destCitySelect">
+                        <option value="">Hedef Şehir Seçiniz...</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="action-area">
+                <button class="submit-premium-btn" onclick="calculateSmartRoute()" style="background: #2c3e50;">
+                    Rotayı Hesapla ve Göster <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+
+            <div id="routeResult" class="route-result-card" style="display:none;">
+                </div>
+        </div>
+    </div>
+</div>
+<div id="premiumOverlay" class="premium-overlay">
+    
+    <button class="close-overlay-btn" onclick="closePremiumAppointment()">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="cinema-header">
+        <div class="video-track" id="videoTrack">
+            <div class="video-item">
+                <video muted playsinline id="vid1">
+                    <source src="1.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                    <span class="hero-tag">ULUSLARARASI STANDARTLAR</span>
+                    <h2 class="hero-title">En Gelişmiş <br>Teknoloji ve Tedavi</h2>
+                    <p class="hero-desc">Dünya çapında akredite hastanelerimizde sağlığınız güvende.</p>
+                </div>
+            </div>
+            <div class="video-item">
+                <video muted playsinline id="vid2">
+                    <source src="2.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                    <span class="hero-tag">KONFORLU İYİLEŞME</span>
+                    <h2 class="hero-title">Evinizdeki Huzur, <br>Otel Konforunda Bakım</h2>
+                    <p class="hero-desc">Tedavi süreciniz boyunca 5 yıldızlı konaklama deneyimi.</p>
+                </div>
+            </div>
+            <div class="video-item">
+                <video muted playsinline id="vid3">
+                    <source src="3.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                    <span class="hero-tag">81 İLDE HİZMET</span>
+                    <h2 class="hero-title">Türkiye'nin Dört Bir Yanında <br>Kesintisiz Sağlık</h2>
+                    <p class="hero-desc">Edirne'den Kars'a uzanan devasa sağlık ağı.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-overlay-gradient"></div>
+    </div>
+
+    <div class="form-section-wrapper">
+        <div class="form-container">
+            <div class="form-header">
+                <h3>Profesyonel Randevu Oluştur</h3>
+                <p>Uzman hasta danışmanlarımız en kısa sürede sizinle iletişime geçecektir.</p>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label><i class="fa-solid fa-location-dot"></i> Tercih Edilen Şehir</label>
+                    <select id="premCitySelect" onchange="loadHospitals()">
+                        <option value="">Şehir Seçiniz...</option>
+                        </select>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fa-solid fa-hospital"></i> Sağlık Kurumu</label>
+                    <select id="premHospSelect" disabled>
+                        <option value="">Önce Şehir Seçiniz</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="action-area">
+                <button class="submit-premium-btn" onclick="openWarningModal()">
+                    Randevu Talebi Oluştur <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <p class="security-note"><i class="fa-solid fa-lock"></i> Bilgileriniz 256-bit SSL ile korunmaktadır.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal-backdrop">
+        <div class="modal-box">
+            <div class="modal-icon-circle">
+                <i class="fa-solid fa-info"></i>
+            </div>
+            <h4>Bilgilendirme</h4>
+            <p>Değerli misafirimiz, randevu sistemimiz şu anda geliştirme aşamasındadır.İlerleyen süreçte tam entegrasyon sağlanacaktır.</p>
+            <button class="modal-confirm-btn" onclick="closeWarningModal()">Anladım</button>
+        </div>
+    </div>
+</div>
+
+<section class="ranking-section">
+    <div class="ranking-header">
+        <h2>Türkiye Sağlık Turizmi Endeksi</h2>
+        <p>Uzmanlık alanlarına göre resmi verilerle desteklenmiş şehir başarı sıralaması.</p>
+    </div>
+
+    <div class="filter-container">
+        <select id="categorySelect" onchange="updateRankings()">
+            <option value="">Analiz Alanı Seçiniz...</option>
+            <option value="hair">💇‍♂️ Saç Ekimi & Restorasyonu</option>
+            <option value="eye">👁️ İleri Göz Cerrahisi</option>
+            <option value="dental">🦷 Estetik Diş & İmplant</option>
+            <option value="heart">❤️ Kardiyovasküler Cerrahi</option>
+            <option value="physio">🦾 Fizik Tedavi & Rehabilitasyon</option>
+            <option value="thermal">♨️ Medikal Termal Tedavi</option>
+        </select>
+    </div>
+
+    <div id="rankingGrid" class="ranking-grid">
+        </div>
+</section>
+<section class="compare-section">
+    <div class="compare-header">
+        <h2>Şehir Kıyaslama Merkezi</h2>
+        <p>İki farklı şehri medikal olanakları, cerrahi başarıları ve bakım kalitesiyle yan yana inceleyin.</p>
+    </div>
+
+    <div class="compare-selectors">
+        <div class="compare-select-box">
+            <label>1. Şehri Seçin</label>
+            <select id="cityOne" onchange="runComparison()">
+                <option value="">Seçiniz...</option>
+                </select>
+        </div>
+        <div class="compare-select-box">
+            <label>2. Şehri Seçin</label>
+            <select id="cityTwo" onchange="runComparison()">
+                <option value="">Seçiniz...</option>
+                </select>
+        </div>
+    </div>
+
+    <div id="comparisonResult" class="compare-table-wrapper">
+        <div style="text-align: center; padding: 40px; color: #94a3b8;">
+            Kıyaslamak için yukarıdan iki şehir seçin.
+        </div>
+    </div>
+</section>
+    <script src="map-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
