@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurkMed Net | Sağlık Turizmi Dijital Ağı</title>
@@ -39,12 +40,124 @@
         <a href="javascript:void(0)" onclick="openAnalysis()">
             <i class="fa-solid fa-chart-pie"></i> Maliyet Karşılaştırması
         </a>
+        <li><a href="#" onclick="openFAQ()">Sıkça Sorulan Sorular</a></li>
         <a href="javascript:void(0)" onclick="closeSideMenu()">
             <i class="fa-solid fa-xmark"></i> Kapat
         </a>
     </div>
 </div>
+<div id="faqOverlay" class="faq-overlay">
+    <div class="faq-header">
+        <div class="logo">TurkMed</div> <button class="close-btn" onclick="closeFAQ()">
+            <i class="fas fa-arrow-left"></i> Geri Dön
+        </button>
+    </div>
 
+    <div class="faq-container">
+        <h2>Merak Ettikleriniz</h2>
+        <p class="faq-subtitle">Tedavi süreçleri ve hizmetlerimiz hakkında sıkça sorulan sorular.</p>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Türkiye'de tedavi fiyatları ne kadar?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Avrupa ve ABD standartlarında hizmeti, %70'e varan fiyat avantajıyla sunuyoruz. Net fiyat bilgisi için tedavi planınızı oluşturmamız gerekmektedir.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Havaalanı transferi ve konaklama dahil mi?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Hayır maalesef dahil değil fakat şehir içi ulaşım rehberimiz yakında eklenecektir.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Hangi hastaneleri öneriyorsunuz?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Sitemizde bulunan hastanelerimizin hepsi son teknoloji düzeyine sahip donanımlı hastanelerdir.Diğer hastaneler ve detaylı bilgi için .@gmail.com ile bizimle iletişime geçebilirsiniz.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Türkçe bilmiyorum, doktorla nasıl anlaşacağım?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Hiç endişelenmeyin.Doktorlarımız iyi düzeyde ingilizceye sahiptir iletişim konusunda bir pproblem yaşanmayacaktır.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Siz hastane misiniz yoksa danışman mı?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Biz bir sağlık turizmi asistanı platformuyuz. Kendimize ait bir hastanemiz yoktur; ancak Türkiye'nin en iyi ve akredite olmuş hastaneleriyle anlaşmalarımız vardır. Sizin için en doğru doktoru ve en uygun fiyatı bulmanıza yardımcı oluyoruz.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Türkiye'ye gelince internet/telefon hattı bulabilir miyim?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Tabiki,yerel mağazalarımızdan ihtiyaçlarınızı karşılayabilir gönül rahatlığı ile alışveriş yapabilirsiniz.</p>.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Ulaşım için bilgileri nereden bulabilirim?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Sitemizin üst panelinde bulunan "Nasıl Giderim?" butonu size bu konuda yardımcı olucaktır.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Yanımda eşim veya arkadaşım gelebilir mi?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Elbette. Tedavi sürecinde yanınızda bir destekçinizin olması bizi mutlu eder. Otel ve transfer planlamasını yaparken refakatçinizi de dahil ederek yapabilirsiniz.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Ödeme seçenekleri nelerdir?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Ödemelerinizi ülke içinde Nakit (EUR/USD/GBP/TL), Kredi Kartı veya Banka Transferi yoluyla güvenle gerçekleştirebilirsiniz.</p>
+                </div>
+            </div>
+            
+             <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>Saç ekimi için hangi şehiri tercih etmeliyim?</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <div class="accordion-body">
+                    <p>Saç ekimi için İstanbul'u tercih edebilirsiniz.Detaylı bilgileri sitemizde bulabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="analysisPage" class="full-page-overlay">
     <div class="page-bg-video">
         <video autoplay muted loop playsinline id="analysisVid">
@@ -371,5 +484,6 @@
 </section>
     <script src="map-data.js"></script>
     <script src="app.js"></script>
+    
 </body>
 </html>
