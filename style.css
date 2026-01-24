@@ -1531,3 +1531,43 @@ input[type=range]::-webkit-slider-thumb:hover {
         margin: 20px auto;
     }
 }
+/* Her şeyi kutu içine hapset, dışarı taşmasın */
+* {
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    /* Ana taşıyıcıyı esnek yap ve dikey diz */
+    .hero, .main-content, header, footer, .container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 10px !important;
+        text-align: center !important;
+    }
+
+    /* Butonların sağa sola kaçmasını engelle */
+    .button-group, .nav-links, .menu {
+        display: flex !important;
+        flex-direction: column !important; /* Alt alta diz */
+        width: 100% !important;
+        gap: 10px !important; /* Aralarına boşluk koy */
+    }
+
+    /* Butonları ekranın ortasına sabitle ve genişlet */
+    button, .btn, a.button {
+        width: 85% !important; /* Ekranın %85'ini kaplasın, yanlarda boşluk kalsın */
+        margin: 5px auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        position: relative !important; /* Eğer 'absolute' varsa iptal eder */
+    }
+
+    /* Sağa sola kaymayı (horizontal scroll) tamamen öldür */
+    html, body {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+}
