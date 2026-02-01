@@ -5777,3 +5777,20 @@ accordions.forEach(acc => {
         }
     });
 });
+function toggleCulturePanel() {
+    const overlay = document.getElementById('culture-overlay');
+    // Eğer kapalıysa aç, açıksa kapat
+    if (overlay.style.display === 'flex') {
+        overlay.style.display = 'none';
+    } else {
+        overlay.style.display = 'flex';
+    }
+}
+
+function toggleHighContrast() {
+    // Body etiketine 'high-contrast' ismini ekleyip çıkarır
+    document.body.classList.toggle('high-contrast');
+    
+    // Konsola bilgi verelim (Çalışıp çalışmadığını anlamak için F12'den bakabilirsin)
+    console.log("Erişilebilirlik Modu: " + (document.body.classList.contains('high-contrast') ? "AÇIK" : "KAPALI"));
+}
