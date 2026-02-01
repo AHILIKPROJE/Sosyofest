@@ -1571,34 +1571,125 @@ input[type=range]::-webkit-slider-thumb:hover {
         overflow-x: hidden !important;
     }
 }
-/* Mobil cihazlar için (Telefon) */
-@media (max-width: 480px) {
-    /* Butonları ekran genişliğine göre oranla */
-    button, .btn, a.button, .accordion-header {
-        /* Ekranın %80'i kadar geniş olsun ama çok da devleşmesin */
-        width: 80% !important; 
-        
-        /* Yazı boyutunu ekran genişliğine göre ayarla (Dinamik küçülme) */
-        /* 4vw = Ekran genişliğinin %4'ü kadar yazı boyutu */
-        font-size: 4vw !important; 
-        
-        /* İç boşlukları (padding) da küçült ki buton kibar dursun */
-        padding: 3vw 5vw !important; 
-        
-        /* Köşeleri de ekrana göre yuvarla */
-        border-radius: 2vw !important;
-        
-        margin: 2vh auto !important; /* dikey boşluk (vh) */
-        display: block !important;
-    }
+/* DÜNYA BUTONU */
+#culture-btn {
+    position: fixed; bottom: 30px; left: 30px;
+    width: 65px; height: 65px;
+    background: linear-gradient(135deg, #003366, #00bcd4);
+    color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; cursor: pointer; z-index: 10000;
+    box-shadow: 0 5px 20px rgba(0, 188, 212, 0.4);
+    animation: spinBtn 20s linear infinite, floatBtn 3s ease-in-out infinite;
+}
 
-    /* Başlıkları da küçültelim ki sırıtmasın */
-    h1 {
-        font-size: 8vw !important;
-        margin-bottom: 5vh;
-    }
+@keyframes spinBtn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-    h2 {
-        font-size: 6vw !important;
-    }
+/* MODAL OVERLAY */
+.culture-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none; align-items: center; justify-content: center;
+    z-index: 10001; backdrop-filter: blur(10px);
+}
+
+.culture-modal {
+    background: #ffffff; width: 95%; max-width: 650px;
+    max-height: 85vh; padding: 25px; border-radius: 20px;
+    position: relative; overflow-y: auto;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.modal-header { border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; }
+.modal-header h2 { color: #003366; font-size: 1.6rem; }
+
+/* LİSTE TASARIMI */
+.list-item {
+    display: flex; gap: 20px; background: #f9f9f9;
+    padding: 15px; border-radius: 15px; margin-bottom: 20px;
+    border: 1px solid #eee; text-align: left;
+}
+
+.item-img-container { flex-shrink: 0; width: 120px; height: 120px; }
+.item-img-container img { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
+
+.item-text h4 { color: #00bcd4; margin-bottom: 5px; font-size: 1.1rem; }
+.item-text p { font-size: 0.85rem; color: #444; line-height: 1.5; margin-bottom: 5px; }
+.item-text strong { color: #003366; }
+
+.panel-btn {
+    background: #003366; color: white; border: none;
+    padding: 12px 40px; border-radius: 50px; cursor: pointer;
+    font-weight: 700; width: 100%; transition: 0.3s;
+}
+
+.panel-btn:hover { background: #00bcd4; }
+
+/* MOBİL AYARI */
+@media (max-width: 550px) {
+    .list-item { flex-direction: column; }
+    .item-img-container { width: 100%; height: 150px; }
+}
+/* --- 1. BUTONUN KENDİSİ (Normal Hali) --- */
+#accessBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #003366; /* Kurumsal Lacivert */
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 99999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 2px solid white;
+    transition: transform 0.2s;
+}
+
+#accessBtn:hover {
+    transform: scale(1.1);
+}
+
+/* --- 2. MOD AKTİFKEN SİTENİN ALACAĞI HAL (SİYAH-SARI) --- */
+body.high-contrast {
+    background-color: #000000 !important; /* Arka plan Siyah */
+    color: #FFFF00 !important;            /* Yazılar Neon Sarı */
+}
+
+/* Sitedeki tüm kutuların, kartların arka planını siyah yap */
+body.high-contrast div, 
+body.high-contrast section, 
+body.high-contrast nav, 
+body.high-contrast .card,
+body.high-contrast .modal-content {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border-color: #FFFF00 !important; /* Çerçeveler Sarı */
+}
+
+/* Linkler ve Butonlar */
+body.high-contrast a, 
+body.high-contrast button {
+    color: #00FF00 !important; /* Linkler Yeşil olsun ki ayrılsın */
+    text-decoration: underline !important;
+    font-weight: bold !important;
+}
+
+/* Resimleri Gri Yap (Göz yormaması için) */
+body.high-contrast img {
+    filter: grayscale(100%);
+    border: 2px solid #FFFF00;
+}
+
+/* Mod açıkken butonun kendi rengini de değiştir */
+body.high-contrast #accessBtn {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
 }
